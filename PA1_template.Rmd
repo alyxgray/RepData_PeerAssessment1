@@ -13,18 +13,18 @@ The purpose of this analysis is to use activity tracking data to study a group's
 
 Before any analyses can be performed, the raw data must be converted into a suitable data format and must undergo initial pre-processing.
 
-```{r initialization}
+```{r initialization echo=TRUE}
 # Load datasets library and make large float numbers more human readable (get rid of scientific notation)
 library(datasets)
 options("scipen"= 100, "digits" = 4 )
 ```
 
-```{r read_data}
+```{r read_data echo=TRUE}
 # Read in the CSV, including NAs
 table <- read.table ("activity.csv", header=TRUE, sep=",", na.strings="NA")
 ```
 
-```{r preprocessing_data}
+```{r preprocessing_data echo=TRUE}
 # Convert to a datetime.  Pad the interval to four characters so we can use strptime
 table$dateTime <- as.POSIXct(
   strptime (
@@ -38,27 +38,27 @@ table$dateTime <- as.POSIXct(
 
 To calculate the mean total number of steps, the NA values must first be removed from the data set and the sum of daily steps must be calculated.
 
-```{r total_daily_steps}
+```{r total_daily_steps echo=TRUE}
 # Sum all the daily steps -- NAs omitted
 sums <- na.omit(aggregate (list (steps = table$steps), list(date = table$date), FUN = sum))
 ```
 
 The mean and median values of the total daily steps can then be calculated.
 
-```{r mean_total_daily_steps}
+```{r mean_total_daily_steps echo=TRUE eval=TRUE}
 # Calculate mean of daily total steps -- NAs omitted
 stepMean <- mean(sums$steps)
 stepMean
 ```
 
-```{r median_total_daily_steps}
+```{r median_total_daily_steps echo=TRUE eval=TRUE}
 # Calculate median of daily total steps -- NAs omitted
 stepMedian <- median(sums$steps)
 stepMedian
 ```
 
 The total number of daily steps can be visualized as a histogram plot of the frequency versus the steps taken using the R basic plotting system.
-```{r total_daily_steps_plot}
+```{r total_daily_steps_plot echo=TRUE}
 # Plot total number of daily steps as a histogram --NAs omitted
 png(filename = "dailystepstotal.png", width = 480, height=480, units="px")
 hist (sums$steps, breaks=5, main="Total Number of Steps Taken Each Day", col="red", xlab="Steps Taken", ylab="Frequency")
