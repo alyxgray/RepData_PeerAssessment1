@@ -49,13 +49,13 @@ The mean and median values of the total daily steps can then be calculated.
 # Calculate mean of daily total steps -- NAs omitted
 stepMean <- mean(sums$steps)
 ```
-Total Daily Steps Mean: `r stepMean`
+Total Daily Steps Mean: `r stepMean[1]`
 
 ```{r median_total_daily_steps echo=TRUE eval=TRUE}
 # Calculate median of daily total steps -- NAs omitted
 stepMedian <- median(sums$steps)
 ```
-Total Daily Steps Median: `r stepMedian`
+Total Daily Steps Median: `r stepMedian[1]`
 
 The total number of daily steps can be visualized as a histogram plot of the frequency versus the steps taken using the R basic plotting system.
 ```{r total_daily_steps_plot echo=TRUE}
