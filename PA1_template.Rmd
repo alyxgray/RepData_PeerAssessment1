@@ -149,10 +149,12 @@ png(filename = "dailystepstotalClean.png", width = 480, height=480, units="px")
 hist (sumsClean$steps, breaks=5, main="Total Number of Steps Taken Each Day", col="red", xlab="Steps Taken", ylab="Frequency")
 dev.off()
 ```
+![Total Number of Steps Taken Each Day (Adjusted)](dailystepstotalClean.png)
+
 
 ###Analysis of Variation After Imputation
 
-| Before Imputation | After Imputation
+Factor | Before Imputation | After Imputation
 ------------- | ------------- | -------------
 Mean | `r stepMean` | `r stepCleanMean`
 Median | `r stepMedian` | `r stepCleanMedian`
