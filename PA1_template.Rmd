@@ -38,7 +38,7 @@ table$dateTime <- as.POSIXct(
 
 To calculate the mean total number of steps, the NA values must first be removed from the data set and the sum of daily steps must be calculated.
 
-```{r mean_total_daily_steps}
+```{r total_daily_steps}
 # Sum all the daily steps -- NAs omitted
 sums <- na.omit(aggregate (list (steps = table$steps), list(date = table$date), FUN = sum))
 ```
@@ -48,11 +48,21 @@ The mean and median values of the total daily steps can then be calculated.
 ```{r mean_total_daily_steps}
 # Calculate mean of daily total steps -- NAs omitted
 stepMean <- mean(sums$steps)
+stepMean
 ```
 
 ```{r median_total_daily_steps}
 # Calculate median of daily total steps -- NAs omitted
 stepMedian <- median(sums$steps)
+stepMedian
+```
+
+The total number of daily steps can be visualized as a histogram plot of the frequency versus the steps taken.
+```{r total_daily_steps_plot}
+# Plot total number of daily steps as a histogram --NAs omitted
+png(filename = "dailystepstotal.png", width = 480, height=480, units="px")
+hist (sums$steps, breaks=5, main="Total Number of Steps Taken Each Day", col="red", xlab="Steps Taken", ylab="Frequency")
+dev.off()
 ```
 
 ## What is the average daily activity pattern?
