@@ -60,7 +60,7 @@ stepMedian
 The total number of daily steps can be visualized as a histogram plot of the frequency versus the steps taken.
 ```{r total_daily_steps_plot}
 # Plot total number of daily steps as a histogram --NAs omitted
-png(filename = "dailystepstotal.png", width = 480, height=480, units="px")
+#png(filename = "dailystepstotal.png", width = 480, height=480, units="px")
 hist (sums$steps, breaks=5, main="Total Number of Steps Taken Each Day", col="red", xlab="Steps Taken", ylab="Frequency")
 dev.off()
 ```
