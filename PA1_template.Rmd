@@ -1,25 +1,25 @@
 ---
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
+title: "PA1_template"
+author: "Alyx Gray"
+date: "June 14, 2015"
+output: html_document
 ---
 
+## Introduction
+
+The purpose of this analysis is to use activity tracking data to study a group's daily activity levels.
 
 ## Loading and preprocessing the data
+
+###Before any analyses can be performed, the raw data must be converted into a suitable data format and must undergo initial pre-processing.
 
 
 
 ## What is mean total number of steps taken per day?
 
-
-
 ## What is the average daily activity pattern?
-
-
 
 ## Imputing missing values
 
-
-
 ## Are there differences in activity patterns between weekdays and weekends?
+
