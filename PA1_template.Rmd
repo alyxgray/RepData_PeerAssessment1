@@ -157,7 +157,66 @@ dev.off()
 Factor | Before Imputation | After Imputation | Difference
 ------------- | ------------- | ------------- | -------------
 **Mean** | `r stepMean` | `r stepCleanMean` | `r abs(stepCleanMean-stepMean)`
-**Median** | `r stepMedian` | `r stepCleanMedian` | `r abs(stepCleanMedian-stepMedian`
+**Median** | `r stepMedian` | `r stepCleanMedian` | `r abs(stepCleanMedian-stepMedian)`
+
+**Interpretation:**
+Data imputation using interval mean values does not appear to have created a significant difference between unadjusted and adjusted mean and median data set values.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
+To determine if there are any differences in the activity patterns on weekdays versus weekends, it is first necessary to categorize each interval range based on the appropriate day type.
+
+Created a new column with the day of the week:
+```{r dayType_activity_patterns echo=TRUE}
+# Add Day of Week column to Data Frame
+tableCleaned$day <- weekdays(tableCleaned$dateTime, abbreviate = TRUE)
+```
+
+```{r dayType_activity_patterns echo=TRUE}
+# Create a character vector that contains the abbreviated days of the week
+day <- c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+
+# Subset by day type using indexes (weekday or weekend)
+weekday <- day[1:5]
+weekend <- day[6:7]
+```
+
+```{r dayType_activity_patterns echo=TRUE}
+# Create a dayType column in data frame
+tableCleaned$dayType <- weekdays(tableCleaned$dateTime, abbreviate = TRUE)
+
+# Divide dayType factor into two levels
+levels(tableCleaned$dayType) <- c("Weekday", "Weekend")
+
+# Collapse factor by level type
+tableCleaned$dayType[tableCleaned$day %in% weekday] <- "Weekday"
+tableCleaned$dayType[tableCleaned$day %in% weekend] <- "Weekend"
+```
+
+```{r dayType_activity_patterns echo=TRUE}
+# Store subsets of the imputed data categorized by dayType (weekday or weekend)
+stepsWeekday <- subset(tableCleaned, dayType == "Weekday", c("steps", "interval"))
+stepsWeekend <- subset(tableCleaned, dayType == "Weekend", c("steps", "interval"))
+```
+
+```{r dayType_activity_patterns echo=TRUE}
+# Calculate means by interval for each of the two level subsets (weekday or weekend)
+intervalStepsWeekday <- aggregate(list (steps = stepsWeekday$steps), list (interval = stepsWeekday$interval), FUN = mean)
+intervalStepsWeekend <- aggregate(list (steps = stepsWeekend$steps), list (interval = stepsWeekend$interval), FUN = mean)
+```
+
+
+The average daily activity pattern can be visualized using the R base plotting system as a time series plot of each 5-minute time interval versus the average number of steps taken during that interval as a function of day type.
+```{r dayType_activity_patterns echo=TRUE}
+# Plot average number of steps taken on weekdays and weekends -- NAs replaced
+png(filename = "meanStepsByDayType.png", width = 480, height=480, units="px")
+par(mfrow = c(2,1))
+
+plot(intervalStepsWeekend$interval, intervalStepsWeekend$steps, type="l", xlab="weekend", ylab="Average Number of Steps")
+plot(intervalStepsWeekday$interval, intervalStepsWeekday$steps, type="l", xlab="weekday", ylab="Average Number of Steps")
+dev.off()
+```
+![Average Activity by Day Type (Adjusted)](meanStepsByDayType.png)
+
+**Interpretation:**
+Through visual comparison of weekend and weekday activity pattern plots, there do seem to be differences in observed activity levels between the two day categories.
