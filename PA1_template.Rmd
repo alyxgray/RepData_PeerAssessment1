@@ -11,11 +11,41 @@ The purpose of this analysis is to use activity tracking data to study a group's
 
 ## Loading and preprocessing the data
 
-###Before any analyses can be performed, the raw data must be converted into a suitable data format and must undergo initial pre-processing.
+Before any analyses can be performed, the raw data must be converted into a suitable data format and must undergo initial pre-processing.
 
+'''{r initialization}
+# Load datasets library and make large float numbers more human readable (get rid of scientific notation)
+library(datasets)
+options("scipen"= 100, "digits" = 4 )
+'''
 
+'''{r read_data}
+# Read in the CSV, including NAs
+table <- read.table ("activity.csv", header=TRUE, sep=",", na.strings="NA")
+'''
+
+'''{r preprocessing_data}
+# Convert to a datetime.  Pad the interval to four characters so we can use strptime
+table$dateTime <- as.POSIXct(
+  strptime (
+    sprintf ('%s %04d', table$date, table$interval),
+    "%Y-%m-%d %H%M"
+  )
+)
+'''
 
 ## What is mean total number of steps taken per day?
+
+To calculate the mean total number of steps, the NA values must first be removed from the data set and the sum of daily steps must be calculated.
+
+'''{r mean_total_daily_steps}
+# Sum all the daily steps -- NAs omitted
+sums <- na.omit(aggregate (list (steps = table$steps), list(date = table$date), FUN = sum))
+'''
+
+The mean and median values of the total daily steps can then be calculated.
+
+'''{r mean}
 
 ## What is the average daily activity pattern?
 
