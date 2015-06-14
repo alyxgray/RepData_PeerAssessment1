@@ -60,11 +60,11 @@ stepMedian <- median(sums$steps)
 The total number of daily steps can be visualized as a histogram plot of the frequency versus the steps taken using the R basic plotting system.
 ```{r total_daily_steps_plot echo=TRUE}
 # Plot total number of daily steps as a histogram --NAs omitted
-png(filename = "dailystepstotal.png", width = 480, height=480, units="px")
+png(filename = "./figures/dailystepstotal.png", width = 480, height=480, units="px")
 hist (sums$steps, breaks=5, main="Total Number of Steps Taken Each Day", col="red", xlab="Steps Taken", ylab="Frequency")
 dev.off()
 ```
-![Total Number of Steps Taken Each Day](dailystepstotal.png)
+![Total Number of Steps Taken Each Day](./figures/dailystepstotal.png)
 
 ## What is the average daily activity pattern?
 
@@ -79,13 +79,13 @@ The average daily activity pattern can be visualized using the R base plotting s
 
 ```{r average_daily_activity_pattern echo=TRUE}
 # Plot Average Daily Activity Pattern -- NAs omitted
-png(filename = "averagedailyactivity.png", width = 480, height=480, units="px")
+png(filename = "./figures/averagedailyactivity.png", width = 480, height=480, units="px")
 interval_time_x <- intervalAverageSteps$interval
 interval_steps_y <- intervalAverageSteps$steps
 plot(interval_time_x,interval_steps_y, type="l", main="Average Daily Activity Pattern", xlab="Time Interval (minutes)", ylab="Average Steps")
 dev.off()
 ```
-![Average Daily Activity Pattern](averagedailyactivity.png)
+![Average Daily Activity Pattern](./figures/averagedailyactivity.png)
 
 To determine the time interval at which the maximum activity occurs, the average steps can be subsetted and the max() function applied.
 ```{r max_daily_activity echo=TRUE}
@@ -145,11 +145,11 @@ stepCleanMedian <- median(sumsClean$steps)
 The adjusted total number of daily steps can be visualized as a histogram plot of the frequency versus the steps taken using the R basic plotting system.
 ```{r clean_total_daily_steps_plot echo=TRUE}
 # Plot total number of daily steps as histogram -- NAs replaced
-png(filename = "dailystepstotalClean.png", width = 480, height=480, units="px")
+png(filename = "./figures/dailystepstotalClean.png", width = 480, height=480, units="px")
 hist (sumsClean$steps, breaks=5, main="Total Number of Steps Taken Each Day", col="red", xlab="Steps Taken", ylab="Frequency")
 dev.off()
 ```
-![Total Number of Steps Taken Each Day (Adjusted)](dailystepstotalClean.png)
+![Total Number of Steps Taken Each Day (Adjusted)](./figures/dailystepstotalClean.png)
 
 
 ###Analysis of Variation After Imputation
@@ -209,14 +209,14 @@ intervalStepsWeekend <- aggregate(list (steps = stepsWeekend$steps), list (inter
 The average daily activity pattern can be visualized using the R base plotting system as a time series plot of each 5-minute time interval versus the average number of steps taken during that interval as a function of day type.
 ```{r dayType_activity_patterns echo=TRUE}
 # Plot average number of steps taken on weekdays and weekends -- NAs replaced
-png(filename = "meanStepsByDayType.png", width = 480, height=480, units="px")
+png(filename = "./figures/meanStepsByDayType.png", width = 480, height=480, units="px")
 par(mfrow = c(2,1))
 
 plot(intervalStepsWeekend$interval, intervalStepsWeekend$steps, type="l", xlab="weekend", ylab="Average Number of Steps")
 plot(intervalStepsWeekday$interval, intervalStepsWeekday$steps, type="l", xlab="weekday", ylab="Average Number of Steps")
 dev.off()
 ```
-![Average Activity by Day Type (Adjusted)](meanStepsByDayType.png)
+![Average Activity by Day Type (Adjusted)](./figures/meanStepsByDayType.png)
 
 **Interpretation:**
 Through visual comparison of weekend and weekday activity pattern plots, there do seem to be differences in observed activity levels between the two day categories.
