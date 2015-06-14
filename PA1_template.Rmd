@@ -154,10 +154,10 @@ dev.off()
 
 ###Analysis of Variation After Imputation
 
-Factor | Before Imputation | After Imputation
-------------- | ------------- | -------------
-Mean | `r stepMean` | `r stepCleanMean`
-Median | `r stepMedian` | `r stepCleanMedian`
+Factor | Before Imputation | After Imputation | Difference
+------------- | ------------- | ------------- | -------------
+**Mean** | `r stepMean` | `r stepCleanMean` | `r abs(stepCleanMean-stepMean)`
+**Median** | `r stepMedian` | `r stepCleanMedian` | `r abs(stepCleanMedian-stepMedian`
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
