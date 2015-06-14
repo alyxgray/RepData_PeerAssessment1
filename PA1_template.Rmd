@@ -146,7 +146,7 @@ The adjusted total number of daily steps can be visualized as a histogram plot o
 ```{r clean_total_daily_steps_plot echo=TRUE}
 # Plot total number of daily steps as histogram -- NAs replaced
 png(filename = "./figures/dailystepstotalClean.png", width = 480, height=480, units="px")
-hist (sumsClean$steps, breaks=5, main="Total Number of Steps Taken Each Day", col="red", xlab="Steps Taken", ylab="Frequency")
+hist (sumsClean$steps, breaks=5, main="Total Number of Steps Taken Each Day (Adjusted)", col="red", xlab="Steps Taken", ylab="Frequency")
 dev.off()
 ```
 ![Total Number of Steps Taken Each Day (Adjusted)](./figures/dailystepstotalClean.png)
