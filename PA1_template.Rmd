@@ -68,6 +68,26 @@ dev.off()
 
 ## What is the average daily activity pattern?
 
+To determine the average daily activity pattern, the step data can be aggregated and the mean for each time interval can be calculated.
+```{r average_daily_activity_pattern}
+# Average all the daily steps in each 5 minute interval
+intervalAverageSteps <- aggregate(table$steps ~ table$interval, data.frame (table$steps, table$interval), FUN=mean, na.action=na.omit)
+names(intervalAverageSteps)<-c("interval", "steps")
+```
+
+The average daily activity pattern can be visualized using the R base plotting system as a time series plot of each 5-minute time interval versus the average number of steps taken during that interval.
+
+```{r average_daily_activity_pattern}
+# Plot Average Daily Activity Pattern -- NAs omitted
+png(filename = "averagedailyactivity.png", width = 480, height=480, units="px")
+interval_time_x <- intervalAverageSteps$interval
+interval_steps_y <- intervalAverageSteps$steps
+plot(interval_time_x,interval_steps_y, type="l", main="Average Daily Activity Pattern", xlab="Time Interval (minutes)", ylab="Average Steps")
+dev.off()
+```
+![Average Daily Activity Pattern](averagedailyactivity.png)
+
+
 ## Imputing missing values
 
 ## Are there differences in activity patterns between weekdays and weekends?
